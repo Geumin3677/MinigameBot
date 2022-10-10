@@ -29,10 +29,9 @@ module.exports = {
 		var dataJson = jsonBuffer.toString();
 		const plant = JSON.parse(dataJson);
 
-        const isholder = interaction.member.roles.cache.has(holderRole)
-
         if(!(interaction.user.id in plant))
         {
+            const isholder = interaction.member.roles.cache.has(holderRole)
             plant[interaction.user.id] = {
                 seed : 0,
                 seedtime : 0,
