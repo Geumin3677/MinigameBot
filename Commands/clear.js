@@ -8,13 +8,21 @@ async function dataSave(data, name) {
     fs.writeFileSync(`./${name}.json`, datastr);
 }
 
-function sleep(ms) {
-    return new Promise((r) => setTimeout(r, ms));
-}
-
 function makeRandom(min, max){
     var RandVal = Math.floor(Math.random()*(max-min+1)) + min;
     return RandVal;
+}
+
+String.prototype.toHHMMSS = function () {
+    var sec_num = parseInt(this, 10); // don't forget the second param
+    var hours   = Math.floor(sec_num / 3600);
+    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+    if (hours   < 10) {hours   = "0"+hours;}
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    return hours+':'+minutes+':'+seconds;
 }
 
 
@@ -32,7 +40,7 @@ module.exports = {
         if(interaction.channel.name in Dungeondata)
         {
             const name = interaction.channel.name
-            if(Dungeondata[name].player[interaction.user.id])
+            if(Dungeondata[name].player[interaction.user.id] === 0)
             {
                 //뽑기 결과 확인
                 const res = makeRandom(0, (Dungeondata[name].cards.length - 1))
@@ -66,7 +74,7 @@ module.exports = {
                         .setDescription(`던전내 카드는 ${(Dungeondata[name].cards.length)}장 남았습니다.`)
                     interaction.reply({ embeds: [embed] })
                 }
-                Dungeondata[name].player[interaction.user.id] = false
+                Dungeondata[name].player[interaction.user.id] = 60
                 if(Dungeondata[name].cards.length === 0 || Dungeondata[name].chance === 0 )
                 {
                     //던전 폐쇄
@@ -84,11 +92,10 @@ module.exports = {
 
                 }
                 dataSave(Dungeondata, 'Dungeondata')
-                WaitMin(Dungeondata, name, interaction)
             }
             else
             {
-                interaction.reply({ content: '1분마다 사용이 가능한 명령어 입니다.', ephemeral: true })
+                interaction.reply({ content: `다음 clean 가능까지 \`${Dungeondata[name].player[interaction.user.id].toString().toHHMMSS()}\` 남았습니다.`, ephemeral: true })
             }
         }
         else
@@ -96,10 +103,4 @@ module.exports = {
             interaction.reply({ content: '알맞은 채널이 아닙니다.', ephemeral: true })
         }
     }
-}
-
-async function WaitMin(Dungeondata, name, interaction) {
-    await sleep(60000)
-    Dungeondata[name].player[interaction.user.id] = true
-    dataSave(Dungeondata, 'Dungeondata')
 }

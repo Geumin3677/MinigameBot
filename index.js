@@ -65,9 +65,13 @@ client.on('interactionCreate', async interaction => {
 
 			if(n in Dungeondata)
 			{
-				if(Dungeondata[n].state >= 2)
+				if(Dungeondata[n].state === 2)
 				{
 					interaction.reply({ content: `던전이 이미 닫혔습니다.`, ephemeral: true })
+				}
+				else if(Dungeondata[n].state === 3)
+				{
+					interaction.reply({ content: `던전이 이미 폐쇄 되었습니다.`, ephemeral: true })
 				}
 				else if(interaction.user.id in Dungeondata[n].player)
 				{
@@ -81,7 +85,7 @@ client.on('interactionCreate', async interaction => {
 				{
 					var role = interaction.guild.roles.cache.find(role => role.name === n)
 					interaction.member.roles.add(role)
-					Dungeondata[n].player[interaction.user.id] = true
+					Dungeondata[n].player[interaction.user.id] = 0
 					dataSave(Dungeondata, 'Dungeondata')
 
 					if(Object.keys(Dungeondata[n].player).length >= Dungeondata[n].playerLimit)
@@ -115,7 +119,7 @@ client.on('interactionCreate', async interaction => {
 							var role2 = interaction.guild.roles.cache.find(role => role.id === Dungeondata[n].targetrole)
 							const embed = new EmbedBuilder()
 								.setTitle(`${n} 이벤트 던전이 오픈됩니다.`)
-								.setDescription(`${role2} 역할 보유자 한정으로 아레 버튼을 통해 참가하실수 있습니다\n입장 현황 - 0/${Dungeondata[name].playerLimit}`)
+								.setDescription(`${role2} 역할 보유자 한정으로 아레 버튼을 통해 참가하실수 있습니다\n입장 현황 -${Object.keys(Dungeondata[n].player).length}/${Dungeondata[n].playerLimit}`)
 							interaction.update({ embeds: [embed], components: [row] })
 						}
 						else

@@ -106,7 +106,7 @@ module.exports = {
                 .addFields(
                     { name: '최대 인원', value: playerLimit.toString(), inline: true },
                     { name: '카드 개수', value: cardnum.toString(), inline: true },
-                    { name: '당첨 확률', value: `${chance.toString()}%`, inline: true },
+                    { name: '당첨 확률', value: `${Math.ceil(chance).toString()}%`, inline: true },
                 )
             channel.send({ embeds: [embed] })
             id = channel.id
@@ -150,7 +150,7 @@ module.exports = {
          .addFields(
             { name: '최대 인원', value: playerLimit.toString(), inline: true },
             { name: '카드 개수', value: cardnum.toString(), inline: true },
-            { name: '당첨 카드 개수', value: chancecardnum.toString(), inline: true },
+            { name: '당첨 카드 개수', value: Math.ceil(chancecardnum).toString(), inline: true },
             { name: '확률', value: `${chance.toString()}%`, inline: true },
          )
         interaction.reply( { embeds: [embed] } )

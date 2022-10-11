@@ -16,6 +16,11 @@ module.exports = {
             var dataJson = jsonBuffer.toString();
             const plant = JSON.parse(dataJson);
 
+            //Dungeondata.json 불러오기
+            jsonBuffer = fs.readFileSync('Dungeondata.json')
+            dataJson = jsonBuffer.toString();
+            const Dungeondata = JSON.parse(dataJson);
+
             for(user of Object.keys(plant))
             {
                 if(plant[user].seedtime != 0)
@@ -32,7 +37,19 @@ module.exports = {
                 }
             }
 
+            for(dungeon of Object.keys(Dungeondata))
+            {
+                for(id of Object.keys(Dungeondata[dungeon].player))
+                {
+                    if(Dungeondata[dungeon].player[id] > 0)
+                    {
+                        Dungeondata[dungeon].player[id] -= 1
+                    }
+                }
+            }
+
             dataSave(plant, "plant")
+            dataSave(Dungeondata, "Dungeondata")
 
             await sleep(1000)
         }
