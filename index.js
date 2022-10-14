@@ -11,6 +11,7 @@ client.commands = new Collection();
 const commandsPath = path.join(__dirname, 'Commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
+const ment = ['로드클리닝 던전이 닫혔습니다.', '던전이 닫혔습니다. 아쉽지만 다음 던전에서 만나요~']
 async function dataSave(Dungeondata, name) {
     const datastr = JSON.stringify(Dungeondata, null, '\t');
     fs.writeFileSync(`./${name}.json`, datastr);
@@ -20,6 +21,11 @@ for (const file of commandFiles) {
 	const filePath = path.join(commandsPath, file);
 	const command = require(filePath);
 	client.commands.set(command.data.name, command);
+}
+
+function makeRandom(min, max){
+    var RandVal = Math.floor(Math.random()*(max-min+1)) + min;
+    return RandVal;
 }
 
 client.on('ready', async () => {
@@ -101,7 +107,7 @@ client.on('interactionCreate', async interaction => {
 								.setDisabled(true)
 							);
 						const embed = new EmbedBuilder()
-							.setTitle(`${n} 던전이 닫혔습니다.`)
+							.setTitle(`${n} ${ment[makeRandom(0, 1)]}`)
 							.setDescription('정원 인원을 모두 채웠습니다.')
 						interaction.update({ embeds: [embed], components: [row] })
 					}

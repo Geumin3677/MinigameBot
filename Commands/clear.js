@@ -25,6 +25,15 @@ String.prototype.toHHMMSS = function () {
     return hours+':'+minutes+':'+seconds;
 }
 
+const ment0 = ['크리스탈 획득 성공!', '크리스탈 당첨!', '겟또!', '크리스탈 당첨!']
+const ment1 = ['당첨! 크리스탈을 획득했어요.', '행운 그 잡채!', '당신은 럭키 그 자체!', '어마무시한 경쟁률을 뚫었어요!']
+
+const ment2 = ['크리스탈 획득 실패!', '크리스탈 낙첨첨!', '언럭...', '크리스탈 낙첨!']
+const ment3 = ['낙첨! 다음에 다시 도전해주세요.', '행운없음 그 잡채!', '다음을 기대해요.', '아쉽지만 꽝! 하지만 도전은 언제나 아름다운 것..']
+
+const ment4 = ['로드클리닝 던전 종료', '던전이 닫혔습니다.']
+const ment5 = ['던전내 크리스탈이 모두 소진되어 던전이 종료되었습니다.', '크리스탈이 모두 소진되어 던전이 종료되었습니다.']
+
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -60,18 +69,21 @@ module.exports = {
 
                     dataSave(userData, 'userData')
 
+                    const ment = makeRandom(0, 3)
+
                     const embed = new EmbedBuilder()
-                        .setTitle(`획득 성공 문구 1`)
-                        .setDescription(`던전내 카드는 ${(Dungeondata[name].cards.length)}장 남았습니다.`)
+                        .setTitle(`${ment0[ment]}`)
+                        .setDescription(`${ment1[ment]} 남은 크리스탈은 ${(Dungeondata[name].chance)}개 입니다.`)
                     interaction.reply({ embeds: [embed] })
                 }
                 else
                 {
+                    const ment = makeRandom(0, 3)
                     //꽝
                     Dungeondata[name].cards.splice(res, 1)
                     const embed = new EmbedBuilder()
-                        .setTitle(`획득 실패 문구 1`)
-                        .setDescription(`던전내 카드는 ${(Dungeondata[name].cards.length)}장 남았습니다.`)
+                        .setTitle(`${ment2[ment]}`)
+                        .setDescription(`${ment3[ment]} 남은 크리스탈은 ${(Dungeondata[name].chance)}개 입니다.`)
                     interaction.reply({ embeds: [embed] })
                 }
                 Dungeondata[name].player[interaction.user.id] = 60
@@ -85,9 +97,10 @@ module.exports = {
                         SendMessages: false,
                     })
 
+                    const m = makeRandom(0, 1)
                     const embed = new EmbedBuilder()
-                        .setTitle(`던전 폐쇄`)
-                        .setDescription(`던전내 카드가 모두 소진됨에 따라 던전이 폐쇄됩니다.`)
+                        .setTitle(`${ment4[m]}`)
+                        .setDescription(`${ment5[m]}`)
                     interaction.channel.send({ embeds: [embed] })
 
                 }

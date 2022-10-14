@@ -89,7 +89,7 @@ module.exports = {
         await interaction.guild.channels.create({
             name : name,
             type: ChannelType.GuildText,
-            parent : "1026412079516758026",
+            parent : "1025632933991694406",
             permissionOverwrites: [
                 {
                     id: interaction.guild.roles.everyone,
@@ -102,10 +102,10 @@ module.exports = {
             ]
         }).then(channel => {
             const embed = new EmbedBuilder()
-                .setTitle('던전이 생성 되었습니다')
+                .setTitle('로드클리닝 던전이 생성되었습니다. ')
                 .addFields(
                     { name: '최대 인원', value: playerLimit.toString(), inline: true },
-                    { name: '카드 개수', value: cardnum.toString(), inline: true },
+                    { name: '크리스탈 개수', value: Math.ceil(chancecardnum).toString(), inline: true },
                     { name: '당첨 확률', value: `${Math.ceil(chance).toString()}%`, inline: true },
                 )
             channel.send({ embeds: [embed] })
@@ -120,7 +120,7 @@ module.exports = {
                 type : type,
                 cards : cards,
                 cardnum : cardnum,
-                chance : chance,
+                chance : Math.ceil(chancecardnum),
                 playerLimit : playerLimit,
                 player : {}
             }
@@ -134,7 +134,7 @@ module.exports = {
                 type : type,
                 cards : cards,
                 cardnum : cardnum,
-                chance : chance,
+                chance : Math.ceil(chancecardnum),
                 playerLimit : playerLimit,
                 player : {}
             }
