@@ -86,7 +86,7 @@ module.exports = {
                         .setDescription(`${ment3[ment]} 남은 크리스탈은 ${(Dungeondata[name].chance)}개 입니다.`)
                     interaction.reply({ embeds: [embed] })
                 }
-                Dungeondata[name].player[interaction.user.id] = 60
+                Dungeondata[name].player[interaction.user.id] = 1
                 if(Dungeondata[name].cards.length === 0 || Dungeondata[name].chance === 0 )
                 {
                     //던전 폐쇄

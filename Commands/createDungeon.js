@@ -54,11 +54,11 @@ module.exports = {
 
         if(type === 'normal')
         {
-            chance = makeRandom(10, 30)
+            chance = 80//makeRandom(10, 30)
         }
         else
         {
-            chance = makeRandom(25, 45)
+            chance = 80//makeRandom(25, 45)
         }
 
         const multiple = makeRandom(3, 5)

@@ -33,8 +33,8 @@ module.exports = {
         ud = userData[interaction.user.id]
 
         const embed = new EmbedBuilder()
-            .setTitle(`${ud.name} 님의 프로필`)
-            .setDescription(`소유 JE# - ${ud.point}P\n소유 아이템 - Coming Soon`)
+            .setAuthor({ name: `${ud.name}`, iconURL: `${interaction.user.displayAvatarURL()}`, url: 'https://discord.js.org' })
+            .setDescription(`Leaderboard Rank - None\nJE# - 💰${ud.point}`)
         interaction.reply({ embeds: [embed] })
     }
 }

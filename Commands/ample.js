@@ -22,8 +22,7 @@ String.prototype.toHHMMSS = function () {
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('ample')
-		.setDescription('식물에 물을 줍니다.')
-        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+		.setDescription('식물에 물을 줍니다.'),
     async execute(interaction) {
         //plant.json 불러오기
 		var jsonBuffer = fs.readFileSync('plant.json')
