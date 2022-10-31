@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, PermissionFlagsBits, ChannelType, italic, EmbedBuilder, channelLink } = require('discord.js');
 const { guildId } = require('../config.json');
-const fs = require('fs')
+const fs = require('fs');
+const { SheetLog } = require('./functions/Log');
 
 function makeRandom(min, max){
     var RandVal = Math.floor(Math.random()*(max-min+1)) + min;
@@ -143,7 +144,14 @@ module.exports = {
         const datastr = JSON.stringify(Dungeondata, null, '\t');
         fs.writeFileSync('./Dungeondata.json', datastr);
 
-        
+        SheetLog({
+            dname: name,
+            dtype : type,
+            role: targetRole.name,
+            state: 'CREATE',
+            type: 2
+        })
+
         const embed = new EmbedBuilder()
          .setTitle('던전 생성 성공!')
          .setDescription('/dungeonopen 을 이용해 던전을 오픈해주세요')

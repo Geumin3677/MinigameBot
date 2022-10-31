@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, PermissionFlagsBits, ChannelType, italic, EmbedBuilder, channelLink, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { guildId } = require('../config.json');
-const fs = require('fs')
+const fs = require('fs');
+const { SheetLog } = require('./functions/Log');
 
 async function dataSave(Dungeondata, name) {
     const datastr = JSON.stringify(Dungeondata, null, '\t');
@@ -34,6 +35,14 @@ module.exports = {
 
                 if(Dungeondata[name].type === 'normal')
                 {
+                    SheetLog({
+                        dname: name,
+                        dtype : Dungeondata[name].type,
+                        role: '-',
+                        state: 'OPEN',
+                        type: 2
+                    })
+
                     const row1 = new ActionRowBuilder()
                     .addComponents(
                         new ButtonBuilder()
@@ -50,6 +59,15 @@ module.exports = {
                 else
                 {
                     var role = interaction.guild.roles.cache.find(role => role.id === Dungeondata[name].targetrole)
+
+                    SheetLog({
+                        dname: name,
+                        dtype : Dungeondata[name].type,
+                        role: role.name,
+                        state: 'OPEN',
+                        type: 2
+                    })
+
                     const row2 = new ActionRowBuilder()
                     .addComponents(
                         new ButtonBuilder()

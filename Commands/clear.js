@@ -2,6 +2,7 @@ const { SlashCommandBuilder, PermissionFlagsBits, ChannelType, italic, EmbedBuil
 const { guildId } = require('../config.json');
 const fs = require('fs');
 const { Autoreg } = require('./functions/Autoreg');
+const { SheetLog } = require('./functions/Log');
 
 async function dataSave(data, name) {
     const datastr = JSON.stringify(data, null, '\t');
@@ -69,6 +70,13 @@ module.exports = {
 
                     dataSave(userData, 'userData')
 
+                    SheetLog({
+                        name: `${interaction.user.username}#${interaction.user.discriminator}`,
+                        dname: name,
+                        value: 5,
+                        type: 1
+                    })
+
                     const ment = makeRandom(0, 3)
 
                     const embed = new EmbedBuilder()
@@ -95,6 +103,14 @@ module.exports = {
                     
                     interaction.channel.permissionOverwrites.edit(role, {
                         SendMessages: false,
+                    })
+
+                    SheetLog({
+                        dname: name,
+                        dtype : Dungeondata[name].type,
+                        role: '',
+                        state: 'CLOSE',
+                        type: 2
                     })
 
                     const m = makeRandom(0, 1)

@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, PermissionFlagsBits, ChannelType, italic, EmbedBuilder, channelLink } = require('discord.js');
 const { guildId } = require('../config.json');
-const fs = require('fs')
+const fs = require('fs');
+const { SheetLog } = require('./functions/Log');
 
 async function dataSave(Dungeondata, name) {
     const datastr = JSON.stringify(Dungeondata, null, '\t');
@@ -26,6 +27,14 @@ module.exports = {
                     
             interaction.channel.permissionOverwrites.edit(role, {
                 SendMessages: false,
+            })
+
+            SheetLog({
+                dname: interaction.channel.name,
+                dtype : Dungeondata[interaction.channel.name].type,
+                role: '',
+                state: 'CLOSE',
+                type: 2
             })
 
             const embed = new EmbedBuilder()

@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require('discord.js');
 const fs = require('fs');
 const { Autoreg } = require('./functions/Autoreg');
+const { SheetLog } = require('./functions/Log');
 
 async function dataSave(data, name) {
     const datastr = JSON.stringify(data, null, '\t');
@@ -89,6 +90,13 @@ module.exports = {
                             userData[interaction.user.id].point -= ItemList[name]
                             userData[interaction.user.id].item.push(name)
                             dataSave(userData, 'userData')
+
+                            SheetLog({
+                                name: `${interaction.user.username}#${interaction.user.discriminator}`,
+                                item: name,
+                                value: ItemList[name],
+                                type: 0
+                            })
 
                             const embed = new EmbedBuilder()
                                 .setTitle(`\`${name}\` 구매 성공`)

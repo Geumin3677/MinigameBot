@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "challengebot-342904",
+  "private_key_id": "c3f505776b8bc64280d19e58f84d49ce3ec246e1",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDgkpK8qiBaivYL\nk/YN8W5XI1trrM/ItE7ZVLd3qrAawULaVTyGkUb74arH3WX3vQ3GcAQZalV4vodE\nTfnSonKn4vNgsYsmIwzSr+J1kV6w+EVyIMK0fshmoz7PHz6dRJJVqukzOX5MmkSB\nKfSS8XML6xYmGklHbV59s4VIhBQw5YwnyvlP3oKb7frhQDtSk10/LpIUVdZjbIgl\nAkLIOF7AoXYlg2mqqVTX1mVusRzoMXvZtHd+WikltkDL0iLzv/RFTdyye7/+D4BL\nTDlHnsDUSaLC5Cj4Z772MfXpoPv+XxtWt0sGc6VmJCnr2S8wmmfO5KgEPa8tvhZ8\ndFq4DyM7AgMBAAECggEAHuwPyGqkidMYjf+Rodncl6MGs4zYD4rEUKiZmqCmHwj9\na5LRArZ+T7CDE4IoyDP/8ZL6/YTmv/l8JquV+qrjnrphSK8pudaZrWkKhaW+pB+L\ncGuSY8gRUBCqVVq4BG+stp8R/TutaF7Vj/N2+cTFUp7MLfLwpCUrHaPadmG5ZgHz\ngoKr/vvUicHKjOFARnrzGQdy16R7CcVTQFXKvSzzdHAySJufQClkkDAV87VxKCWe\nO7VXQhMEewYZ5lbgU67OaYMbJRVev866VubQ2ZG3r4vqhiwuOvXvdnSTZbrCNvS4\nmNHKnmpCGEJFBpIhwWPtfWpew9auhBLGM9RPoVqgAQKBgQDwlkfJj6JRxIq0YasL\nBcyaV88OZ5bO2jQSW/jm9lT2hzK2degZfqo02nC9mObw+HyQKpA4Uz4KPDQpVbAj\noDa5sGW36c5rZtC53ZI1gikpxP8E0ZJ+XLuxLvaMy/Swwx5XxNaaHzgzGjYlwLoA\nSFscmKsjyZln0uPDeag7NZhZQQKBgQDu9aYt42rXt+Obal5Y7oAikGD+QPbIflEO\nIqcAgGwDa0ITaGdYdjDrhPtExvERrbLsjefLNp6of+cr/OtXFWBRfp9jMJsQ0A3r\nfSBgWyx5+WbtUObf9z3qBcF8V17nx0/BXr8BPOGPRlvv8i5hMLXLLHhDX0DOxB8G\nkXpSo8MBewKBgQDv14FdaTmSdnMofC194ZwlSeB7Jb3sHQ/INbQe2/e7hPCDgWuO\n7v1Tj2jROnsQQ0g6mJQJ8sJohbgidPARtAiaeUYOYKGN5IO0pzS47zeGEoOBFEQM\ngPoEGyNjHXikNwAq02p1XyYxm7HbVRSYb4mVKoWCOdoa7Nxu5PtXe4iTgQKBgF0n\n/NHU35kbQisba46F5AQVfwp/rvV4cQbusWY7qmAm10qTn/5XjTizzfUBDYfTzHX1\n2FBbibysqCV44xI+7h63G1Hi6ADE6zhLvmxx/sPKW7rWmDrluwhZmBVuRjxbchcz\nZYkI//IH/t1q73PKNoTvYC77mltBD8tSuXowB1yzAoGACRgPv2ggUm/skn+krtcT\n2qLtqCPMvhout/IfD1Ajo7KkoKJjkhuA30Bs1Tcn3YJ3AgN0Cs4BBIMnLeS1UwDr\nAYzVy+72g4ZH8zRnUD+AdBMIJtIeMimi+HgjCTutWP6zPQwYncS4IXm+R7p5AnBx\nmQsi8VJOEiGaanAD3WUOL4o=\n-----END PRIVATE KEY-----\n",
+  "client_email": "minigamebot-sheet@challengebot-342904.iam.gserviceaccount.com",
+  "client_id": "114656905683333683164",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/minigamebot-sheet%40challengebot-342904.iam.gserviceaccount.com"
+}
