@@ -89,7 +89,7 @@ client.on('interactionCreate', async interaction => {
 				}
 				else
 				{
-					var role = interaction.guild.roles.cache.find(role => role.name === n)
+					var role = interaction.guild.roles.cache.find(role => role.name === Dungeondata[n].dungeonName)
 					interaction.member.roles.add(role)
 					Dungeondata[n].player[interaction.user.id] = 0
 					dataSave(Dungeondata, 'Dungeondata')
@@ -101,13 +101,13 @@ client.on('interactionCreate', async interaction => {
 						const row = new ActionRowBuilder()
 						.addComponents(
 							new ButtonBuilder()
-								.setCustomId(n)
+								.setCustomId(Dungeondata[n].dungeonName)
 								.setStyle(ButtonStyle.Primary)
 								.setLabel('입장')
 								.setDisabled(true)
 							);
 						const embed = new EmbedBuilder()
-							.setTitle(`${n} ${ment[makeRandom(0, 1)]}`)
+							.setTitle(`${Dungeondata[n].dungeonName} ${ment[makeRandom(0, 1)]}`)
 							.setDescription('정원 인원을 모두 채웠습니다.')
 						interaction.update({ embeds: [embed], components: [row] })
 					}
@@ -116,7 +116,7 @@ client.on('interactionCreate', async interaction => {
 						const row = new ActionRowBuilder()
 						.addComponents(
 							new ButtonBuilder()
-								.setCustomId(n)
+								.setCustomId(Dungeondata[n].dungeonName)
 								.setStyle(ButtonStyle.Primary)
 								.setLabel('입장')
 							);
@@ -124,20 +124,20 @@ client.on('interactionCreate', async interaction => {
 						{
 							var role2 = interaction.guild.roles.cache.find(role => role.id === Dungeondata[n].targetrole)
 							const embed = new EmbedBuilder()
-								.setTitle(`${n} 이벤트 던전이 오픈됩니다.`)
+								.setTitle(`${Dungeondata[n].dungeonName} 이벤트 던전이 오픈됩니다.`)
 								.setDescription(`${role2} 역할 보유자 한정으로 아레 버튼을 통해 참가하실수 있습니다\n입장 현황 -${Object.keys(Dungeondata[n].player).length}/${Dungeondata[n].playerLimit}`)
 							interaction.update({ embeds: [embed], components: [row] })
 						}
 						else
 						{
 							const embed = new EmbedBuilder()
-								.setTitle(`${n} 던전이 오픈됩니다.`)
+								.setTitle(`${Dungeondata[n].dungeonName} 던전이 오픈됩니다.`)
 								.setDescription(`아레 버튼을 통해 참가하실수 있습니다\n입장 현황 - ${Object.keys(Dungeondata[n].player).length}/${Dungeondata[n].playerLimit}`)
 							interaction.update({ embeds: [embed], components: [row] })
 						}
 					}
 
-					interaction.channel.send({ content: `${interaction.user} 님 ${n} 던전 입장 성공`, ephemeral: true })
+					interaction.channel.send({ content: `${interaction.user} 님 ${Dungeondata[n].dungeonName} 던전 입장 성공`, ephemeral: true })
 				}
 			}
 		}catch (error) {

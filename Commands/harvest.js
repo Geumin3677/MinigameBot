@@ -106,7 +106,18 @@ module.exports = {
                     dataJson = jsonBuffer.toString();
                     const userData = JSON.parse(dataJson);
 
+                    var oldpoint = userData[interaction.user.id].point
                     userData[interaction.user.id].point += rank
+
+                    SheetLog({
+                        name: `${interaction.user.username}#${interaction.user.discriminator}`,
+                        dname: '-',
+                        value: rank,
+                        type: 1,
+                        gpoint: oldpoint,
+                        lpoint: userData[interaction.user.id].point,
+                        dtype: '식물재배'
+                    })
 
                     dataSave(userData, "userData")
 

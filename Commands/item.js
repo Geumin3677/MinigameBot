@@ -87,15 +87,43 @@ module.exports = {
                         
                         if(userData[interaction.user.id].point >= ItemList[name])
                         {
+                            var oldpoint = userData[interaction.user.id].point
                             userData[interaction.user.id].point -= ItemList[name]
                             userData[interaction.user.id].item.push(name)
                             dataSave(userData, 'userData')
+
+                            var list = " "
+                            if(userData[interaction.user.id].item.length >= 1)
+                            {
+                                var tmp = {}
+                                userData[interaction.user.id].item.forEach(name => {
+                                    if(name in tmp)
+                                    {
+                                        tmp[name] += 1
+                                    }
+                                    else
+                                    {
+                                        tmp[name] = 1
+                                    }
+                                });
+                                for(var a of Object.keys(tmp))
+                                {
+                                    list += `${a} - ${tmp[a]}/`
+                                }
+                            }
+                            else
+                            {
+                                list = '-'
+                            }
 
                             SheetLog({
                                 name: `${interaction.user.username}#${interaction.user.discriminator}`,
                                 item: name,
                                 value: ItemList[name],
-                                type: 0
+                                type: 0,
+                                gpoint: oldpoint,
+                                lpoint: userData[interaction.user.id].point,
+                                nitem: list
                             })
 
                             const embed = new EmbedBuilder()
@@ -128,14 +156,30 @@ module.exports = {
                     var list = " "
                     if(userData[interaction.user.id].item.length >= 1)
                     {
+                        var tmp = {}
                         userData[interaction.user.id].item.forEach(name => {
-                            list += `${name}\n`
+                            if(name in tmp)
+                            {
+                                tmp[name] += 1
+                            }
+                            else
+                            {
+                                tmp[name] = 1
+                            }
                         });
+                        for(var a of Object.keys(tmp))
+                        {
+                            list += `${a} - ${tmp[a]}\n`
+                        }
                     }
-                    
+                    else
+                    {
+                        list = '소유중인 아이템이 없습니다.'
+                    }
+
                     const embed = new EmbedBuilder()
                         .setTitle(`\`${interaction.user.username}\` 님 소유 아이템 목록`)
-                        .setDescription(`${list}`)
+                        .setDescription(`${list}`)  
                     interaction.reply({ embeds: [embed] })
                 } catch(error) {
                     console.log(error)

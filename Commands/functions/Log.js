@@ -36,15 +36,23 @@ module.exports = {
         {
             case 0:
                 var sheet = doc.sheetsByIndex[0];
-                await sheet.addRow({ 날짜: time, 닉네임: msg.name, 구매_아이템: msg.item, 구매_비용: msg.value});
+                await sheet.addRow({ 날짜: time, 닉네임: msg.name, 구매_아이템: msg.item, 구매_비용: msg.value, 구매전_포인트: msg.gpoint, 잔존_포인트: msg.lpoint, 아이템_소유현황: msg.nitem});
                 return
             case 1:
                 var sheet = doc.sheetsByIndex[1];
-                await sheet.addRow({ 날짜: time, 닉네임: msg.name, 던전이름: msg.dname, 획득_포인트: msg.value});
+                await sheet.addRow({ 날짜: time, 닉네임: msg.name, 던전이름: msg.dname, 던전타입: msg.dtype, 획득_포인트: msg.value, 기존_포인트: msg.gpoint, 보유_포인트: msg.lpoint});
                 return
             case 2:
                 var sheet = doc.sheetsByIndex[2];
-                await sheet.addRow({ 날짜: time, 던전이름: msg.dname, 던전_종류: msg.dtype, 타겟_역할: msg.role, 상태: msg.state});
+                await sheet.addRow({ 날짜: time, 던전이름: msg.dname, 던전_종류: msg.dtype, 타겟_역할: msg.role, 상태: msg.state, 던전_작성자: msg.editor});
+                return
+            case 3:
+                var sheet = doc.sheetsByIndex[2];
+                await sheet.addRow({ 날짜: time, 던전이름: msg.dname, 던전_종류: msg.dtype, 타겟_역할: msg.role, 상태: msg.state, 던전_작성자: msg.editor, 폐쇄사유: msg.res, 잔존_포인트: msg.lpoint});
+                return
+            case 4:
+                var sheet = doc.sheetsByIndex[3];
+                await sheet.addRow({ 날짜: time, 지급자: msg.name, 지급사유: msg.res, 기존_포인트: msg.gpoint, 지급_포인트: msg.value, 보유_포인트: msg.lpoint});
                 return
         }
     }

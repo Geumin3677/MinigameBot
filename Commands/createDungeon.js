@@ -90,7 +90,7 @@ module.exports = {
         await interaction.guild.channels.create({
             name : name,
             type: ChannelType.GuildText,
-            parent : "1026412079516758026",
+            parent : "1025632933991694406",
             permissionOverwrites: [
                 {
                     id: interaction.guild.roles.everyone,
@@ -115,9 +115,9 @@ module.exports = {
 
         if(type === 'normal')
         {
-            Dungeondata[name] = {
+            Dungeondata[id] = {
                 state : 0,
-                channelId : id,
+                dungeonName : name,
                 type : type,
                 cards : cards,
                 cardnum : cardnum,
@@ -128,10 +128,10 @@ module.exports = {
         }
         else
         {
-            Dungeondata[name] = {
+            Dungeondata[id] = {
                 state : 0,
                 targetrole : targetRole,
-                channelId : id,
+                dungeonName : name,
                 type : type,
                 cards : cards,
                 cardnum : cardnum,
@@ -149,12 +149,13 @@ module.exports = {
             dtype : type,
             role: targetRole.name,
             state: 'CREATE',
-            type: 2
+            type: 2,
+            editor: `${interaction.user.username}#${interaction.user.discriminator}`
         })
 
         const embed = new EmbedBuilder()
          .setTitle('던전 생성 성공!')
-         .setDescription('/dungeonopen 을 이용해 던전을 오픈해주세요')
+         .setDescription('/open 을 이용해 던전을 오픈해주세요')
          .addFields(
             { name: '최대 인원', value: playerLimit.toString(), inline: true },
             { name: '카드 개수', value: cardnum.toString(), inline: true },

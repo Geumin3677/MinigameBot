@@ -47,18 +47,18 @@ module.exports = {
 		var dataJson = jsonBuffer.toString();
 		const Dungeondata = JSON.parse(dataJson);
 
-        if(interaction.channel.name in Dungeondata)
+        if(interaction.channel.id in Dungeondata)
         {
-            const name = interaction.channel.name
-            if(Dungeondata[name].player[interaction.user.id] === 0)
+            const id = interaction.channel.id
+            if(Dungeondata[id].player[interaction.user.id] === 0)
             {
                 //뽑기 결과 확인
-                const res = makeRandom(0, (Dungeondata[name].cards.length - 1))
-                if(Dungeondata[name].cards[res].prize)
+                const res = makeRandom(0, (Dungeondata[id].cards.length - 1))
+                if(Dungeondata[id].cards[res].prize)
                 {
                     //당첨
-                    Dungeondata[name].cards.splice(res, 1)
-                    Dungeondata[name].chance--
+                    Dungeondata[id].cards.splice(res, 1)
+                    Dungeondata[id].chance--
 
                     await Autoreg(interaction)
                     //userData.json 불러오기
@@ -66,51 +66,58 @@ module.exports = {
                     dataJson = jsonBuffer.toString();
                     const userData = JSON.parse(dataJson);
 
+                    var oldpoint = userData[interaction.user.id].point
                     userData[interaction.user.id].point += 5
 
                     dataSave(userData, 'userData')
 
                     SheetLog({
                         name: `${interaction.user.username}#${interaction.user.discriminator}`,
-                        dname: name,
+                        dname: Dungeondata[id].dungeonName,
                         value: 5,
-                        type: 1
+                        type: 1,
+                        gpoint: oldpoint,
+                        lpoint: userData[interaction.user.id].point,
+                        dtype: '로드클리닝'
                     })
 
                     const ment = makeRandom(0, 3)
 
                     const embed = new EmbedBuilder()
                         .setTitle(`${ment0[ment]}`)
-                        .setDescription(`${ment1[ment]} 남은 크리스탈은 ${(Dungeondata[name].chance)}개 입니다.`)
+                        .setDescription(`${ment1[ment]} 남은 크리스탈은 ${(Dungeondata[id].chance)}개 입니다.`)
                     interaction.reply({ embeds: [embed] })
                 }
                 else
                 {
                     const ment = makeRandom(0, 3)
                     //꽝
-                    Dungeondata[name].cards.splice(res, 1)
+                    Dungeondata[id].cards.splice(res, 1)
                     const embed = new EmbedBuilder()
                         .setTitle(`${ment2[ment]}`)
-                        .setDescription(`${ment3[ment]} 남은 크리스탈은 ${(Dungeondata[name].chance)}개 입니다.`)
+                        .setDescription(`${ment3[ment]} 남은 크리스탈은 ${(Dungeondata[id].chance)}개 입니다.`)
                     interaction.reply({ embeds: [embed] })
                 }
-                Dungeondata[name].player[interaction.user.id] = 1
-                if(Dungeondata[name].cards.length === 0 || Dungeondata[name].chance === 0 )
+                Dungeondata[id].player[interaction.user.id] = 1
+                if(Dungeondata[id].cards.length === 0 || Dungeondata[id].chance === 0 )
                 {
                     //던전 폐쇄
 
-                    var role = interaction.guild.roles.cache.find(role => role.name === name)
+                    var role = interaction.guild.roles.cache.find(role => role.name === Dungeondata[id].dungeonName)
                     
                     interaction.channel.permissionOverwrites.edit(role, {
                         SendMessages: false,
                     })
 
                     SheetLog({
-                        dname: name,
-                        dtype : Dungeondata[name].type,
+                        dname: Dungeondata[id].dungeonName,
+                        dtype : Dungeondata[id].type,
                         role: '',
                         state: 'CLOSE',
-                        type: 2
+                        type: 3,
+                        editor: `Bot`,
+                        res: '카드 소진에 따른 자동 폐쇄',
+                        lpoint: (Dungeondata[id].chance * 5)
                     })
 
                     const m = makeRandom(0, 1)
@@ -124,7 +131,7 @@ module.exports = {
             }
             else
             {
-                interaction.reply({ content: `다음 clean 가능까지 \`${Dungeondata[name].player[interaction.user.id].toString().toHHMMSS()}\` 남았습니다.`, ephemeral: true })
+                interaction.reply({ content: `다음 clean 가능까지 \`${Dungeondata[id].player[interaction.user.id].toString().toHHMMSS()}\` 남았습니다.`, ephemeral: true })
             }
         }
         else
