@@ -8,7 +8,7 @@ async function dataSave(data, name) {
 //https://docs.google.com/spreadsheets/d/19jwiekPwjAErrX53HsCUakSp1uXMf-I4nqoLpRdwsVg/edit?usp=sharing
 
 const {GoogleSpreadsheet} = require("google-spreadsheet");
-const gs_creds = require('./challengebot-342904-c3f505776b8b.json')
+const gs_creds = require('./challengebot-342904-35fdbb8c1054.json')
 const doc = new GoogleSpreadsheet("19jwiekPwjAErrX53HsCUakSp1uXMf-I4nqoLpRdwsVg");
 
 module.exports = {
