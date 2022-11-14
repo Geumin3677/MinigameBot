@@ -52,7 +52,7 @@ module.exports = {
                 return
             case 4:
                 var sheet = doc.sheetsByIndex[3];
-                await sheet.addRow({ 날짜: time, 지급자: msg.name, 지급사유: msg.res, 기존_포인트: msg.gpoint, 지급_포인트: msg.value, 보유_포인트: msg.lpoint});
+                await sheet.addRow({ 날짜: time, 지급실행자: msg.name, 지급대상: msg.tname, 지급사유: msg.res, 기존_포인트: msg.gpoint, 지급_포인트: msg.value, 보유_포인트: msg.lpoint});
                 return
         }
     }

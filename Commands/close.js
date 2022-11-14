@@ -27,7 +27,7 @@ module.exports = {
         {
             Dungeondata[interaction.channel.id].state = 3
 			dataSave(Dungeondata, 'Dungeondata')
-            var role = interaction.guild.roles.cache.find(role => role.name === Dungeondata[interaction.channel.id].dungeonName)
+            var role = interaction.guild.roles.cache.find(role => role.id === Dungeondata[interaction.channel.id].role)
                     
             interaction.channel.permissionOverwrites.edit(role, {
                 SendMessages: false,

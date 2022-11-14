@@ -73,7 +73,7 @@ module.exports = {
                     const row2 = new ActionRowBuilder()
                     .addComponents(
                         new ButtonBuilder()
-                            .setCustomId(Dungeondata[name].dungeonName)
+                            .setCustomId(name)
                             .setStyle(ButtonStyle.Primary)
                             .setLabel('입장')
                         );

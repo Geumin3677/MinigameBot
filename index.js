@@ -89,7 +89,7 @@ client.on('interactionCreate', async interaction => {
 				}
 				else
 				{
-					var role = interaction.guild.roles.cache.find(role => role.name === Dungeondata[n].dungeonName)
+					var role = interaction.guild.roles.cache.find(role => role.id === Dungeondata[n].role)
 					interaction.member.roles.add(role)
 					Dungeondata[n].player[interaction.user.id] = 0
 					dataSave(Dungeondata, 'Dungeondata')
@@ -139,6 +139,10 @@ client.on('interactionCreate', async interaction => {
 
 					interaction.channel.send({ content: `${interaction.user} 님 ${Dungeondata[n].dungeonName} 던전 입장 성공`, ephemeral: true })
 				}
+			}
+			else
+			{
+				interaction.reply({ content: `존재하지 않는 던전입니다.`, ephemeral: true })
 			}
 		}catch (error) {
 			console.error(error);

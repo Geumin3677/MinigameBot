@@ -23,7 +23,7 @@ module.exports = {
             .setRequired(true))
         .addStringOption(option => 
             option.setName('사유')
-            .setDescription('던전 폐쇄 사유')
+            .setDescription('포인트 지급 사유')
             .setRequired(true)),
     async execute(interaction) {
         
@@ -45,12 +45,13 @@ module.exports = {
         dataSave(userData, 'userData')
 
         SheetLog({
-            name: `${targtUser.user.username}#${targtUser.user.discriminator}`,
+            tname: `${targtUser.user.username}#${targtUser.user.discriminator}`,
             type: 4,
             res: res,
             gpoint: oldpoint,
             value: value,
-            lpoint: userData[UserId].point
+            lpoint: userData[UserId].point,
+            name: `${interaction.user.username}#${interaction.user.discriminator}`
         })
 
         interaction.reply({ content: '지급 성공', ephemeral: true })

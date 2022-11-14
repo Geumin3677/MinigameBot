@@ -118,6 +118,7 @@ module.exports = {
             Dungeondata[id] = {
                 state : 0,
                 dungeonName : name,
+                role : role.id,
                 type : type,
                 cards : cards,
                 cardnum : cardnum,
@@ -132,6 +133,7 @@ module.exports = {
                 state : 0,
                 targetrole : targetRole,
                 dungeonName : name,
+                role : role.id,
                 type : type,
                 cards : cards,
                 cardnum : cardnum,

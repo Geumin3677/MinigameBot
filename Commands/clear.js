@@ -103,7 +103,7 @@ module.exports = {
                 {
                     //던전 폐쇄
 
-                    var role = interaction.guild.roles.cache.find(role => role.name === Dungeondata[id].dungeonName)
+                    var role = interaction.guild.roles.cache.find(role => role.id === Dungeondata[id].role)
                     
                     interaction.channel.permissionOverwrites.edit(role, {
                         SendMessages: false,
