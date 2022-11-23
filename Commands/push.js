@@ -41,6 +41,7 @@ module.exports = {
 
         var oldpoint = userData[UserId].point
         userData[UserId].point += value
+        userData[UserId].cntpoint += value
         
         dataSave(userData, 'userData')
 

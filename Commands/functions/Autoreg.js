@@ -18,7 +18,8 @@ module.exports = {
             userData[interaction.user.id] = {
                 name : name,
                 point : 0,
-                item : []
+                item : [],
+                cntpoint: 0
             }
             dataSave(userData, 'userData')
         }

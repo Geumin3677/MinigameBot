@@ -40,7 +40,7 @@ module.exports = {
 
         await Autoreg(targtUser)
 
-        var oldpoint = userData[UserId].point 
+        var oldpoint = userData[UserId].point
 
         userData[UserId].point -= value
         

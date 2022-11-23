@@ -108,6 +108,7 @@ module.exports = {
 
                     var oldpoint = userData[interaction.user.id].point
                     userData[interaction.user.id].point += rank
+                    userData[interaction.user.id].cntpoint += rank
 
                     SheetLog({
                         name: `${interaction.user.username}#${interaction.user.discriminator}`,

@@ -90,7 +90,7 @@ module.exports = {
         await interaction.guild.channels.create({
             name : name,
             type: ChannelType.GuildText,
-            parent : "1025632933991694406",
+            parent : "1026412079516758026",
             permissionOverwrites: [
                 {
                     id: interaction.guild.roles.everyone,

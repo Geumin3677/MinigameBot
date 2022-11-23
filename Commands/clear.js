@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, PermissionFlagsBits, ChannelType, italic, EmbedBuilder, channelLink } = require('discord.js');
 const { guildId } = require('../config.json');
 const fs = require('fs');
-const { Autoreg } = require('./functions/Autoreg');
+const { Autoreg, addPoint } = require('./functions/Autoreg');
 const { SheetLog } = require('./functions/Log');
 
 async function dataSave(data, name) {
@@ -68,6 +68,8 @@ module.exports = {
 
                     var oldpoint = userData[interaction.user.id].point
                     userData[interaction.user.id].point += 5
+                    userData[interaction.user.id].cntpoint += value
+
 
                     dataSave(userData, 'userData')
 

@@ -101,7 +101,7 @@ client.on('interactionCreate', async interaction => {
 						const row = new ActionRowBuilder()
 						.addComponents(
 							new ButtonBuilder()
-								.setCustomId(Dungeondata[n].dungeonName)
+								.setCustomId(n)
 								.setStyle(ButtonStyle.Primary)
 								.setLabel('입장')
 								.setDisabled(true)
@@ -116,7 +116,7 @@ client.on('interactionCreate', async interaction => {
 						const row = new ActionRowBuilder()
 						.addComponents(
 							new ButtonBuilder()
-								.setCustomId(Dungeondata[n].dungeonName)
+								.setCustomId(n)
 								.setStyle(ButtonStyle.Primary)
 								.setLabel('입장')
 							);
