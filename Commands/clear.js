@@ -68,7 +68,7 @@ module.exports = {
 
                     var oldpoint = userData[interaction.user.id].point
                     userData[interaction.user.id].point += 5
-                    userData[interaction.user.id].cntpoint += value
+                    userData[interaction.user.id].cntpoint += 5
 
 
                     dataSave(userData, 'userData')

@@ -32,6 +32,14 @@ module.exports = {
         .addRoleOption(option => 
             option.setName('targetrole')
             .setDescription('이벤트 던전일 경우 역할을 선택합니다. 일반 던전일 경우 아무거나 태그')
+            .setRequired(true))
+        .addNumberOption(option =>
+            option.setName('확률')
+            .setDescription('확률')
+            .setRequired(true))
+        .addNumberOption(option =>
+            option.setName('배수')
+            .setDescription('배수')
             .setRequired(true)),
 	async execute(interaction) {
 
@@ -44,25 +52,15 @@ module.exports = {
         const type = interaction.options._hoistedOptions[1].value
         const playerLimit = interaction.options._hoistedOptions[2].value
         const targetRole = interaction.options._hoistedOptions[3].value
+        const chance = interaction.options._hoistedOptions[3].value
+        const multiple = interaction.options._hoistedOptions[3].value
 
         if(name in Dungeondata)
         {
             interaction.reply('이미 존재하는 던전입니다.')
             return 0
         }
-
-        var chance
-
-        if(type === 'normal')
-        {
-            chance = 80//makeRandom(10, 30)
-        }
-        else
-        {
-            chance = 80//makeRandom(25, 45)
-        }
-
-        const multiple = makeRandom(3, 5)
+        
         const cardnum = playerLimit * multiple
 
         const chancecardnum = cardnum * (chance / 100)
