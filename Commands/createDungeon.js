@@ -52,8 +52,8 @@ module.exports = {
         const type = interaction.options._hoistedOptions[1].value
         const playerLimit = interaction.options._hoistedOptions[2].value
         const targetRole = interaction.options._hoistedOptions[3].value
-        const chance = interaction.options._hoistedOptions[3].value
-        const multiple = interaction.options._hoistedOptions[3].value
+        const chance = interaction.options._hoistedOptions[4].value
+        const multiple = interaction.options._hoistedOptions[5].value
 
         if(name in Dungeondata)
         {
@@ -120,6 +120,7 @@ module.exports = {
                 type : type,
                 cards : cards,
                 cardnum : cardnum,
+                enter_type: false,
                 chance : Math.ceil(chancecardnum),
                 playerLimit : playerLimit,
                 player : {}
@@ -135,6 +136,7 @@ module.exports = {
                 type : type,
                 cards : cards,
                 cardnum : cardnum,
+                enter_type: false,
                 chance : Math.ceil(chancecardnum),
                 playerLimit : playerLimit,
                 player : {}
@@ -150,7 +152,9 @@ module.exports = {
             role: targetRole.name,
             state: 'CREATE',
             type: 2,
-            editor: `${interaction.user.username}#${interaction.user.discriminator}`
+            editor: `${interaction.user.username}#${interaction.user.discriminator}`,
+            mult: multiple,
+            chance: chance
         })
 
         const embed = new EmbedBuilder()

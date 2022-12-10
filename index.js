@@ -29,7 +29,7 @@ function makeRandom(min, max){
 }
 
 client.on('ready', async () => {
-	Loop.updateloop()
+	Loop.updateloop(client)
     console.log('MinigameBot is Ready! dev by ABELA')
 })
 
@@ -89,55 +89,93 @@ client.on('interactionCreate', async interaction => {
 				}
 				else
 				{
-					var role = interaction.guild.roles.cache.find(role => role.id === Dungeondata[n].role)
-					interaction.member.roles.add(role)
-					Dungeondata[n].player[interaction.user.id] = 0
-					dataSave(Dungeondata, 'Dungeondata')
-
-					if(Object.keys(Dungeondata[n].player).length >= Dungeondata[n].playerLimit)
+					if(!(Dungeondata[n].enter_type))
 					{
-						Dungeondata[n].state = 2
+						var role = interaction.guild.roles.cache.find(role => role.id === Dungeondata[n].role)
+						interaction.member.roles.add(role)
+						Dungeondata[n].player[interaction.user.id] = 0
 						dataSave(Dungeondata, 'Dungeondata')
-						const row = new ActionRowBuilder()
-						.addComponents(
-							new ButtonBuilder()
-								.setCustomId(n)
-								.setStyle(ButtonStyle.Primary)
-								.setLabel('입장')
-								.setDisabled(true)
-							);
-						const embed = new EmbedBuilder()
-							.setTitle(`${Dungeondata[n].dungeonName} ${ment[makeRandom(0, 1)]}`)
-							.setDescription('정원 인원을 모두 채웠습니다.')
-						interaction.update({ embeds: [embed], components: [row] })
-					}
-					else
-					{
-						const row = new ActionRowBuilder()
-						.addComponents(
-							new ButtonBuilder()
-								.setCustomId(n)
-								.setStyle(ButtonStyle.Primary)
-								.setLabel('입장')
-							);
-						if(Dungeondata[n].type === 'event')
+
+						if(Object.keys(Dungeondata[n].player).length >= Dungeondata[n].playerLimit)
 						{
-							var role2 = interaction.guild.roles.cache.find(role => role.id === Dungeondata[n].targetrole)
+							Dungeondata[n].state = 2
+							dataSave(Dungeondata, 'Dungeondata')
+							const row = new ActionRowBuilder()
+							.addComponents(
+								new ButtonBuilder()
+									.setCustomId(n)
+									.setStyle(ButtonStyle.Primary)
+									.setLabel('입장')
+									.setDisabled(true)
+								);
 							const embed = new EmbedBuilder()
-								.setTitle(`${Dungeondata[n].dungeonName} 이벤트 던전이 오픈됩니다.`)
-								.setDescription(`${role2} 역할 보유자 한정으로 아레 버튼을 통해 참가하실수 있습니다\n입장 현황 -${Object.keys(Dungeondata[n].player).length}/${Dungeondata[n].playerLimit}`)
+								.setTitle(`${Dungeondata[n].dungeonName} ${ment[makeRandom(0, 1)]}`)
+								.setDescription('정원 인원을 모두 채웠습니다.')
 							interaction.update({ embeds: [embed], components: [row] })
 						}
 						else
 						{
-							const embed = new EmbedBuilder()
-								.setTitle(`${Dungeondata[n].dungeonName} 던전이 오픈됩니다.`)
-								.setDescription(`아레 버튼을 통해 참가하실수 있습니다\n입장 현황 - ${Object.keys(Dungeondata[n].player).length}/${Dungeondata[n].playerLimit}`)
-							interaction.update({ embeds: [embed], components: [row] })
+							const row = new ActionRowBuilder()
+							.addComponents(
+								new ButtonBuilder()
+									.setCustomId(n)
+									.setStyle(ButtonStyle.Primary)
+									.setLabel('입장')
+								);
+							if(Dungeondata[n].type === 'event')
+							{
+								var role2 = interaction.guild.roles.cache.find(role => role.id === Dungeondata[n].targetrole)
+								const embed = new EmbedBuilder()
+									.setTitle(`${Dungeondata[n].dungeonName} 이벤트 던전이 오픈됩니다.`)
+									.setDescription(`${role2} 역할 보유자 한정으로 아레 버튼을 통해 참가하실수 있습니다\n입장 현황 -${Object.keys(Dungeondata[n].player).length}/${Dungeondata[n].playerLimit}`)
+								interaction.update({ embeds: [embed], components: [row] })
+							}
+							else
+							{
+								const embed = new EmbedBuilder()
+									.setTitle(`${Dungeondata[n].dungeonName} 던전이 오픈됩니다.`)
+									.setDescription(`아레 버튼을 통해 참가하실수 있습니다\n입장 현황 - ${Object.keys(Dungeondata[n].player).length}/${Dungeondata[n].playerLimit}`)
+								interaction.update({ embeds: [embed], components: [row] })
+							}
+						}
+
+						interaction.channel.send({ content: `${interaction.user} 님 ${Dungeondata[n].dungeonName} 던전 입장 성공`, ephemeral: true })
+					}
+					else
+					{
+						if(Dungeondata[n].tmp.indexOf(interaction.user.id) === -1)
+						{
+							const row = new ActionRowBuilder()
+								.addComponents(
+									new ButtonBuilder()
+										.setCustomId(n)
+										.setStyle(ButtonStyle.Primary)
+										.setLabel('신청')
+									);
+							if(Dungeondata[n].type === 'event')
+							{
+								var role2 = interaction.guild.roles.cache.find(role => role.id === Dungeondata[n].targetrole)
+								const embed = new EmbedBuilder()
+									.setTitle(`${Dungeondata[n].dungeonName} 이벤트 던전이 오픈됩니다.`)
+									.setDescription(`${role2} 역할 보유자 한정으로 아레 버튼을 통해 참가신청을 하실수 있습니다\n신청 현황 - ${Dungeondata[n].tmp.length}명 신청\n던전 정원 - ${Dungeondata[n].playerLimit}`)
+								interaction.update({ embeds: [embed], components: [row] })
+							}
+							else
+							{
+								const embed = new EmbedBuilder()
+									.setTitle(`${Dungeondata[n].dungeonName} 던전이 오픈됩니다.`)
+									.setDescription(`아레 버튼을 통해 참가신청을 하실수 있습니다\n신청 현황 - ${Dungeondata[n].tmp.length + 1}명 신청\n던전 정원 - ${Dungeondata[n].playerLimit}`)
+								interaction.update({ embeds: [embed], components: [row] })
+							}
+							Dungeondata[n].tmp.push(interaction.user.id)
+							dataSave(Dungeondata, 'Dungeondata')
+							interaction.channel.send({ content: `${interaction.user} 님 ${Dungeondata[n].dungeonName} 던전 참여신청 성공`, ephemeral: true })
+						}
+						else
+						{
+							interaction.reply({ content: `이미 신청 하였습니다.`, ephemeral: true })
 						}
 					}
-
-					interaction.channel.send({ content: `${interaction.user} 님 ${Dungeondata[n].dungeonName} 던전 입장 성공`, ephemeral: true })
 				}
 			}
 			else
@@ -160,7 +198,11 @@ client.on('interactionCreate', async interaction => {
 		await command.execute(interaction);
 	} catch (error) {
 		console.error(error);
-		await interaction.reply({ content: '명령어 처리중 오류가 발생했습니다!', ephemeral: true });
+		try {
+			await interaction.reply({ content: '명령어 처리중 오류가 발생했습니다!', ephemeral: true });
+		}catch {
+			await interaction.editReply({ content: '명령어 처리중 오류가 발생했습니다!', ephemeral: true });
+		}
 	}
 });
 

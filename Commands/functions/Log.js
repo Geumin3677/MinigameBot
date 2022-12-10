@@ -48,7 +48,7 @@ module.exports = {
                 return
             case 3:
                 var sheet = doc.sheetsByIndex[2];
-                await sheet.addRow({ 날짜: time, 던전이름: msg.dname, 던전_종류: msg.dtype, 타겟_역할: msg.role, 상태: msg.state, 던전_작성자: msg.editor, 폐쇄사유: msg.res, 잔존_포인트: msg.lpoint});
+                await sheet.addRow({ 날짜: time, 던전이름: msg.dname, 던전_종류: msg.dtype, 타겟_역할: msg.role, 상태: msg.state, 던전_작성자: msg.editor, 폐쇄사유: msg.res, 잔존_포인트: msg.lpoint, 확률: msg.chance, 배수: msg.mult});
                 return
             case 4:
                 var sheet = doc.sheetsByIndex[3];

@@ -47,6 +47,8 @@ module.exports = {
 		var dataJson = jsonBuffer.toString();
 		const Dungeondata = JSON.parse(dataJson);
 
+        await interaction.deferReply();
+
         if(interaction.channel.id in Dungeondata)
         {
             const id = interaction.channel.id
@@ -88,7 +90,7 @@ module.exports = {
                     const embed = new EmbedBuilder()
                         .setTitle(`${ment0[ment]}`)
                         .setDescription(`${ment1[ment]} 남은 크리스탈은 ${(Dungeondata[id].chance)}개 입니다.`)
-                    interaction.reply({ embeds: [embed] })
+                    interaction.editReply({ embeds: [embed] })
                 }
                 else
                 {
@@ -98,7 +100,7 @@ module.exports = {
                     const embed = new EmbedBuilder()
                         .setTitle(`${ment2[ment]}`)
                         .setDescription(`${ment3[ment]} 남은 크리스탈은 ${(Dungeondata[id].chance)}개 입니다.`)
-                    interaction.reply({ embeds: [embed] })
+                    interaction.editReply({ embeds: [embed] })
                 }
                 Dungeondata[id].player[interaction.user.id] = 1
                 if(Dungeondata[id].cards.length === 0 || Dungeondata[id].chance === 0 )
@@ -133,12 +135,12 @@ module.exports = {
             }
             else
             {
-                interaction.reply({ content: `다음 clean 가능까지 \`${Dungeondata[id].player[interaction.user.id].toString().toHHMMSS()}\` 남았습니다.`, ephemeral: true })
+                interaction.editReply({ content: `다음 clean 가능까지 \`${Dungeondata[id]?.player[interaction.user.id].toString().toHHMMSS()}\` 남았습니다.`, ephemeral: true })
             }
         }
         else
         {
-            interaction.reply({ content: '알맞은 채널이 아닙니다.', ephemeral: true })
+            interaction.editReply({ content: '알맞은 채널이 아닙니다.', ephemeral: true })
         }
     }
 }
